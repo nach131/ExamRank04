@@ -71,9 +71,9 @@ int exec(char **cmd, char **env, int i)
 	{
 		cmd[i] = 0;
 		if (has_pipe && (
-						dup2(fd[1], 1) == -1 ||
-						close(fd[0]) == -1 ||
-						close(fd[1]) == -1))
+				dup2(fd[1], 1) == -1 ||
+				close(fd[0]) == -1 ||
+				close(fd[1]) == -1))
 			return err("error: fatal\n");
 		execve(*cmd, cmd, env);
 		return err("error: cannot execute "), err(*cmd), err("\n");
@@ -81,9 +81,9 @@ int exec(char **cmd, char **env, int i)
 
 	waitpid(pid, &status, 0);
 	if (has_pipe && (
-					dup2(fd[0], 0) == -1 ||
-					close(fd[0]) == -1 ||
-					close(fd[1]) == -1))
+			dup2(fd[0], 0) == -1 ||
+			close(fd[0]) == -1 ||
+			close(fd[1]) == -1))
 		return err("error: fatal\n");
 	return WIFEXITED(status) && WEXITSTATUS(status);
 }
